@@ -3,20 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_0.xsd"
          version="3.0">
-    
+
+    <!-- 配置ServletContext信息-->
+    <context-param>
+        <!--    name : key值，可以通过name来获得value值
+        -->
+        <param-name>driver</param-name>
+        <param-value>com.jdbc.Driver</param-value>
+    </context-param>
+
+    <!--  ServletContext01  -->
     <servlet>
-        
         <init-param>
             <param-name>namespace</param-name>
             <param-value>jdbc:mysql</param-value>
         </init-param>
         <!--    servlet-name:定义servlet的名称，当前xml中唯一  -->
         <servlet-name>abc</servlet-name>
-        <servlet-class>com.baidu.servletimp.TestServletFirst</servlet-class>
+        <servlet-class>com.baidu.context.ServletContext01</servlet-class>
     </servlet>
+    <!--servlet虚拟路径的位置-->
     <servlet-mapping>
         <servlet-name>abc</servlet-name>
-        <url-pattern>/testServletFirst</url-pattern>
+        <url-pattern>/servletContext01</url-pattern>
     </servlet-mapping>
-    
 </web-app>

@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>Tomcat Test</title>
+    <title>登录页面</title>
   </head>
   <body>
-  // 该action
-  <form action="testServletFirst" method="post">
+   <%--该action--%>
+  <form action="testLogin" method="get">
    user: <input type="text" name="username"/><br/>
     password:<input type="text" name="password"/><br/>
     <button type="submit">登录</button>
