@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        .wrap{width:1090px;height:680px;background:url(img/picture.jpg);position: fixed;margin:auto;top: 0;bottom: 0;left: 0;right: 0;}
+        .wrap h2{font-size:50px;width:500px;margin:0 auto;padding-top:100px;color:#f7c293;}
+        .wrap .content{width:500px;height:350px;opacity:0.9;position:absolute;margin:200px auto;top: 0;bottom: 0;left: 0;right: 0;border:5px solid #fff;border-radius:10px;}
+        .wrap .content form p{padding-left:20px;}
+        .wrap .content form p:nth-child(1),.wrap .content form p:nth-child(3){font-size:25px;color:white;}
+        .wrap .content form p .input{width:300px;height:30px;}
+        .wrap .content form a{color:#fff;font-size:25px;margin-left:20px;}
+        .wrap .content form #submit{width:100px;height:40px;margin-left:20px;}
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <h2>登陆论文评审系统</h2>
+    <div class="content">
+        <form method="post">
+            <p><label for="username">用户名：</label></p>
+            <p>
+                <input type="text" id="text" name="text" class="input" autofocus="autofocus" required="required" autocomplete="off" placeholder="请输入邮箱/手机号" value="" /></p>
+            <p>
+                <label for="password">密码：</label></p>
+            <p>
+                <input type="password" id="password" name="password" required="required" placeholder="请输入密码" value=""  class="input" /></p>
+            <input type="submit" value="登陆" id="submit">
+            <a href="#">注册</a>
+            <a href="#">忘记密码?</a>
+        </form>
+    </div>
+</div>
+</body>
+</html>

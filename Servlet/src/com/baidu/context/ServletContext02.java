@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ServletContext02")
+@WebServlet(name = "ServletContext02", urlPatterns ="servletContext02" )
 public class ServletContext02 extends HttpServlet {
     @Override
     // 注意这里只能用void init()。否则

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ServletContext01")
 public class ServletContext01 extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +38,7 @@ public class ServletContext01 extends HttpServlet {
         String path_A = servletContext.getRealPath("classes/a.txt");
         System.out.println(path_A);
 
-        // 3. ServletContext是一个域对象（重要 重要 重要）
+        // 3. ServletContext是一个域对象（重要 重要 重要）.ServletContext2中要先设置值
         String name = (String)servletContext.getAttribute("name");
         System.out.println(name);
 

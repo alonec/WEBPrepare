@@ -7,40 +7,56 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * 测试Servlet的三种请求转发方式forward、redirect、include
  */
-@WebServlet(name = "TestLogin", urlPatterns = "/testLogin")
 public class TestLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 设置响应头：解决中文乱码《告诉客户端要用UTF-8格式的数码表，同时服务器也会自动更改格式》
+        response.setContentType("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
+        // 1.通过request获得请求参数
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        System.out.println(username+password);
+        // 2.进行数据库验证
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            // 2.1.获得连接
+            conn = DBUtils.getConnection();
+            // 2.2.获得语句执行者
+            statement = conn.createStatement();
+            // 3.3.执行语句
+            statement.executeQuery("select * from customer where username = "+username+" and password="+password);
+            // 3.4 获得查询结果
+            resultSet = statement.getResultSet();
+            // 3.登录成功，显示成功页面
+            // 4.登录失败，显示提示信息
+            if(resultSet.next()){
+                response.sendRedirect(request.getContextPath()+"success.html");
+            }else{
+                response.sendRedirect(request.getContextPath()+"fail.html");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            // 5.关闭资源
+            DBUtils.release(conn,statement,resultSet);
+        }
+
+
+        System.out.println("Do POST");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setCharacterEncoding("gbk");
-        response.setCharacterEncoding("gbk");
-        response.setContentType("text/html;charset=gbk");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        PrintWriter pw = response.getWriter();
-       // pw.write("include包含。");
 
-        if(username.equals("123")&&password.equals("123")){
-            //include测试（转发：将当前request和response对象保存，交给指定的url处理。并没有表示页面的跳转，
-            // 所以地址栏的地址不会发生改变。）
-//            request.getRequestDispatcher("WEB-INF/login/success.html").include(request, response);
-
-            //forward测试（转发，将当前request和response对象保存，交给指定的url处理。
-            // 并没有表示页面的跳转，所以地址栏的地址不会发生改变。）
-            request.getRequestDispatcher("WEB-INF/login/success.html").forward(request, response);
-        }else{
-            // （重定向：包含两次浏览器请求，浏览器根据url请求一个新的页面，所有的业务处理都转到下一个页面，
-            //  地址栏的地址会变发生改变。）
-//            response.sendRedirect("login/fail.html");
-            // 重定向是响应的方法。重定向不能访问WEB-INF下的文件。所以fail.html应该放在web下面
-            response.sendRedirect(request.getContextPath()+"/fail.html");
-            System.out.println(request.getContextPath());
-        }
     }
 }
